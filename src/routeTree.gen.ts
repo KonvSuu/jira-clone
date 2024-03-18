@@ -18,12 +18,12 @@ import { Route as IndexImport } from './routes/index'
 
 const ProfileRoute = ProfileImport.update({
   path: '/profile',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRoute
 } as any)
 
 const IndexRoute = IndexImport.update({
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRoute
 } as any)
 
 // Populate the FileRoutesByPath interface
