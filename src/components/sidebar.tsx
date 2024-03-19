@@ -1,10 +1,10 @@
 import Logo from '~/images/icon.svg?react'
 import { Search, Plus, CircleHelp } from 'lucide-react'
 
-function Index() {
+function SideBar() {
   return (
     <>
-      <aside className="group fixed left-0 top-0 z-50 h-screen w-[64px] bg-[#0747A6] transition-all duration-200 hover:w-[200px]">
+      <aside className="group fixed left-0 top-0 z-50 h-screen w-[64px] bg-[#0747A6] transition-all duration-200 hover:w-[200px] hover:shadow-[0_10px_20px_10px_rgba(0,0,0,0.3)]">
         <a href="/" className="relative left-0 mb-3 mt-5 block">
           <span className="ml-2 inline-block cursor-pointer select-none p-2">
             <Logo />
@@ -40,4 +40,4 @@ function Index() {
   )
 }
 
-export default Index
+export default SideBar

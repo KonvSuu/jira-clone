@@ -11,19 +11,37 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as ProfileImport } from './routes/profile'
+import { Route as ProjectsImport } from './routes/projects'
 import { Route as IndexImport } from './routes/index'
+import { Route as ProjectsIndexImport } from './routes/projects.index'
+import { Route as ProjectsSettingsImport } from './routes/projects.settings'
+import { Route as ProjectsKanbanImport } from './routes/projects.kanban'
 
 // Create/Update Routes
 
-const ProfileRoute = ProfileImport.update({
-  path: '/profile',
+const ProjectsRoute = ProjectsImport.update({
+  path: '/projects',
   getParentRoute: () => rootRoute
 } as any)
 
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute
+} as any)
+
+const ProjectsIndexRoute = ProjectsIndexImport.update({
+  path: '/',
+  getParentRoute: () => ProjectsRoute
+} as any)
+
+const ProjectsSettingsRoute = ProjectsSettingsImport.update({
+  path: '/settings',
+  getParentRoute: () => ProjectsRoute
+} as any)
+
+const ProjectsKanbanRoute = ProjectsKanbanImport.update({
+  path: '/kanban',
+  getParentRoute: () => ProjectsRoute
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -34,15 +52,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/profile': {
-      preLoaderRoute: typeof ProfileImport
+    '/projects': {
+      preLoaderRoute: typeof ProjectsImport
       parentRoute: typeof rootRoute
+    }
+    '/projects/kanban': {
+      preLoaderRoute: typeof ProjectsKanbanImport
+      parentRoute: typeof ProjectsImport
+    }
+    '/projects/settings': {
+      preLoaderRoute: typeof ProjectsSettingsImport
+      parentRoute: typeof ProjectsImport
+    }
+    '/projects/': {
+      preLoaderRoute: typeof ProjectsIndexImport
+      parentRoute: typeof ProjectsImport
     }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([IndexRoute, ProfileRoute])
+export const routeTree = rootRoute.addChildren([
+  IndexRoute,
+  ProjectsRoute.addChildren([ProjectsKanbanRoute, ProjectsSettingsRoute, ProjectsIndexRoute])
+])
 
 /* prettier-ignore-end */
